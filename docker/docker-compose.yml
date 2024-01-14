@@ -1,0 +1,22 @@
+
+version: '3.8'  # You can adjust the version as needed
+
+volumes:
+    postgres:
+
+services:
+  postgres:
+    container_name: database
+    image: "postgres:14"
+    labels:
+      # see https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#features.docker-compose.custom-images for details
+      org.springframework.boot.service-connection: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      PGDATA: "/data/postgres"
+    volumes:
+      - postgres:/data/postgres
+    restart: unless-stopped
